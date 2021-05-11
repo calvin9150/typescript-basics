@@ -23,3 +23,31 @@ function find(): number | undefined {
 // null
 let person: null; // undefined과 마찬가지로 단독으론 안쓴다.
 let person2: string | null; // 보편적론 undefined를 더 많이 쓴다.
+
+// unknown ❌
+let notSure: unknown = 0;
+notSure = "암거나";
+notSure = true; // 타입에 관계없이 다 가능.. 때문에 unknown은 지양.
+
+// any ❌
+let anything: any = 0;
+anything = "I'm shit";
+
+// void
+function print(): void {
+  console.log("보이드");
+  //   return "Adsds";  ❌ ERROR !!!!! void 타입은 무언가를 반환할 수 없다.
+}
+// ㄴ 변수에 void 선언 시, undefined만 할당 가능하므로 쓰지않는다.
+
+// never
+function throwError(message: string): never {
+  // ㄴ 반환없음
+  throw new Error(message);
+  // while(true){}
+}
+
+// object ❌ 객체도 가능하면 구체적인 타입을 명시하는게 좋다.
+let obj: object;
+function someObject(obj: object) {}
+someObject({ name: "gom" });
