@@ -6,7 +6,7 @@
     console.log(direction);
   }
 
-  move("left");
+  move2("left");
 
   type FontSize = 1 | 10 | 100;
   const font: FontSize = 10;
