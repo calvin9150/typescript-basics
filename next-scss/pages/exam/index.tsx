@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { getList } from "@/apis/list";
 import { GetListResponse } from "@/apis/types";
 
@@ -7,22 +5,14 @@ import Photo from "@/components/photo/Photo";
 
 import styles from "@/styles/Exam.module.scss";
 
-function Exam() {
-  const [photoData, setPhotoData] = useState<GetListResponse[] | null>([]);
+interface ExamProps {
+  list: GetListResponse[];
+}
 
-  useEffect(() => {
-    getList().then((data) => {
-      if (data.length) {
-        setPhotoData(data);
-      }
-    });
-  }, []);
-
+function Exam({ list }: ExamProps) {
   const printPhotos = () => {
-    return photoData?.map((v) => <Photo data={v} />);
+    return list?.map((v) => <Photo data={v} />);
   };
-
-  console.log("photoData", photoData);
 
   return (
     <>
@@ -31,5 +21,16 @@ function Exam() {
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  let list: GetListResponse[] = [];
+  await getList().then((res) => {
+    list = res;
+  });
+
+  return {
+    props: { list },
+  };
+};
 
 export default Exam;
